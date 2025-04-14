@@ -1,0 +1,29 @@
+.car-list-container {
+  padding: 2rem 0;
+}
+
+.car-list-container h1 {
+  text-align: center;
+  color: #2b2d42;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.car-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+@media (min-width: 1200px) {
+  .car-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .car-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}

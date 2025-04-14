@@ -1,0 +1,20 @@
+{
+  "name": "cn-acrtivite-bcrypt",
+  "version": "1.0.0",
+  "description": "API de test de cryptage de mot de passe",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

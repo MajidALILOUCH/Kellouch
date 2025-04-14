@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File System Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        textarea {
+            width: 100%;
+            margin: 10px 0;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Operations du Système de Fichiers</h1>
+
+    <div class="section">
+        <h2>Gestion des fichiers</h2>
+        <textarea id="fileContent" rows="4" placeholder="Entrer le contenu du fichier"></textarea>
+        <button onclick="writeFile()">Ecrire Fichier</button>
+        <button onclick="readFile()">Lire Fichier</button>
+        <button onclick="appendFile()">Ajouter au Fichier</button>
+        <button onclick="deleteFile()">Supprimer le Fichier</button>
+    </div>
+
+    <div class="section">
+        <h2>Gestion des dossier</h2>
+        <input type="text" id="folderName" placeholder="Entrer le nom du dossier">
+        <button onclick="createFolder()">Créer le Dossier</button>
+        <button onclick="listFolder()">Liste du contenu du Dossier</button>
+        <button onclick="deleteFolder()">Supprimer Dossier</button>
+    </div>
+
+    <div class="section">
+        <h2>Téléchargement de fichiers</h2>
+        <input type="file" id="fileUpload">
+        <button onclick="uploadFile()">Téléchar le fichiers</button>
+        <button onclick="listUploads()">Liste des Fichiers téléchargés</button>
+    </div>
+
+    <div id="response"></div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+
+        function showResponse(data) {
+            document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function writeFile() {
+            const content = document.getElementById('fileContent').value;
+            const response = await fetch(`${API_URL}/file/write`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content })
+            });
+            showResponse(await response.text());
+        }
+
+        async function readFile() {
+            const response = await fetch(`${API_URL}/file/read`);
+            showResponse(await response.text());
+        }
+
+        async function appendFile() {
+            const content = document.getElementById('fileContent').value;
+            const response = await fetch(`${API_URL}/file/append`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content })
+            });
+            showResponse(await response.text());
+        }
+
+        async function deleteFile() {
+            const response = await fetch(`${API_URL}/file/delete`, {
+                method: 'DELETE'
+            });
+            showResponse(await response.text());
+        }
+
+        async function createFolder() {
+            const folderName = document.getElementById('folderName').value;
+            const response = await fetch(`${API_URL}/folder/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ folderName })
+            });
+            showResponse(await response.text());
+        }
+
+        async function listFolder() {
+            const response = await fetch(`${API_URL}/folder/list`);
+            showResponse(await response.json());
+        }
+
+        async function deleteFolder() {
+            const folderName = document.getElementById('folderName').value;
+            const response = await fetch(`${API_URL}/folder/delete`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ folderName })
+            });
+            showResponse(await response.text());
+        }
+
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileUpload');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            
+            const response = await fetch(`${API_URL}/upload`, {
+                method: 'POST',
+                body: formData
+            });
+            showResponse(await response.text());
+        }
+
+        async function listUploads() {
+            const response = await fetch(`${API_URL}/uploads`);
+            showResponse(await response.json());
+        }
+    </script>
+</body>
+</html>

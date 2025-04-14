@@ -1,0 +1,28 @@
+{
+  "voitures": [
+    {
+      "id": 1,
+      "marque": "Mercedes-Benz",
+      "modele": "C-Class 2019",
+      "prix": 342348,
+      "kilométrage": "45,000 km",
+      "image": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3"
+    },
+    {
+      "id": 2,
+      "marque": "BMW",
+      "modele": "Series 5 2020",
+      "prix": 441399,
+      "kilométrage": "28,000 km",
+      "image": "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3"
+    },
+    {
+      "id": 3,
+      "marque": "Audi",
+      "modele": "A4 2021",
+      "prix": 407653,
+      "kilométrage": "15,000 km",
+      "image": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3"
+    }
+  ]
+}
